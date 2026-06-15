@@ -11,7 +11,7 @@ export default function Footer() {
             <span className="text-xl">🌿</span>
             <span className="text-sm font-semibold text-green-700">WanderNest</span>
             <span className="text-sm text-gray-400 ml-1">
-              © {currentYear} All rights reserved.
+              © {currentYear} All rights reserved. WanderNest
             </span>
           </div>
 
