@@ -7,39 +7,38 @@ const features = [
   {
     title: "Sentiment Analysis",
     description:
-      "Instantly classify guest reviews as Positive, Neutral, or Negative using AI — no manual reading required.",
+      "Instantly classify guest reviews as Positive, Neutral, or Negative using AI.",
     icon: "😊",
   },
   {
     title: "Theme Detection",
     description:
-      "Automatically tag reviews by topic: Food, Host, Location, Cleanliness, Value, or Experience.",
+      "Automatically tag reviews by topic such as Food, Host, Location, and Experience.",
     icon: "🏷️",
   },
   {
     title: "AI Response Generator",
     description:
-      "Generate professional, on-brand management responses for every review in seconds.",
+      "Generate professional management responses for guest reviews in seconds.",
     icon: "✍️",
   },
   {
     title: "Review Analytics",
     description:
-      "Track sentiment trends, identify recurring issues, and monitor your property's reputation over time.",
+      "Track sentiment trends and monitor property reputation over time.",
     icon: "📊",
   },
 ];
 
 export default function HomePage() {
   return (
-    <div className="min-h-screen flex flex-col bg-gray-50 dark:bg-[#050B18] transition-colors duration-300">
+    <div className="min-h-screen flex flex-col bg-gray-50 dark:bg-gray-950 transition-colors duration-300">
       <Navbar />
 
       <main className="flex-1">
         <Hero />
 
-        {/* Features Section */}
-        <section className="py-20 px-4 sm:px-6 lg:px-8 bg-white dark:bg-[#071226] transition-colors duration-300">
+        <section className="py-20 px-4 sm:px-6 lg:px-8 bg-white dark:bg-gray-950 transition-colors duration-300">
           <div className="max-w-7xl mx-auto">
             <div className="text-center mb-12">
               <p className="text-xs font-semibold text-green-600 dark:text-green-400 uppercase tracking-widest mb-3">
@@ -52,7 +51,7 @@ export default function HomePage() {
 
               <p className="text-gray-500 dark:text-gray-400 max-w-xl mx-auto text-base">
                 WanderNest gives eco-homestay operators a complete review
-                intelligence toolkit — powered by AI.
+                intelligence toolkit powered by AI.
               </p>
             </div>
 
@@ -69,8 +68,7 @@ export default function HomePage() {
           </div>
         </section>
 
-        {/* CTA Banner */}
-        <section className="py-16 px-4 sm:px-6 lg:px-8 bg-green-600 dark:bg-[#0A8F54] transition-colors duration-300">
+        <section className="py-16 px-4 sm:px-6 lg:px-8 bg-green-600">
           <div className="max-w-3xl mx-auto text-center">
             <h2 className="text-2xl sm:text-3xl font-extrabold text-white mb-4">
               Ready to understand your guests better?
@@ -82,7 +80,7 @@ export default function HomePage() {
 
             <a
               href="/dashboard"
-              className="inline-flex items-center gap-2 bg-white dark:bg-[#071226] text-green-700 dark:text-green-400 font-semibold px-8 py-3.5 rounded-xl hover:bg-green-50 dark:hover:bg-[#0F1B33] transition-colors shadow-md"
+              className="inline-flex items-center gap-2 bg-white text-green-700 font-semibold px-8 py-3.5 rounded-xl hover:bg-green-50 transition-colors shadow-md"
             >
               Go to Dashboard
 
