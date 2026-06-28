@@ -68,3 +68,40 @@ Open Browser and Visit:
 
 http://localhost:3000
 
+## Backend Setup
+
+### Navigate to backend
+
+cd backend
+
+### Install dependencies
+
+npm install
+
+### Create environment file
+
+Create a `.env` file inside the backend folder.
+
+Example:
+
+PORT=5000
+
+### Start backend server
+
+npm run dev
+
+Backend runs on:
+
+http://localhost:5000
+
+
+### Frontend
+
+From the project root:
+
+npm install
+npm run dev
+
+Frontend runs on:
+
+http://localhost:3000

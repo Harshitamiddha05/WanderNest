@@ -1,3 +1,4 @@
+const errorHandler = require("./middleware/errorHandler");
 const express = require("express");
 const cors = require("cors");
 require("dotenv").config();
@@ -21,7 +22,7 @@ app.use("/api/reviews", reviewRoutes);
 
 // Port
 const PORT = process.env.PORT || 5000;
-
+app.use(errorHandler);
 app.listen(PORT, () => {
   console.log(`✅ Server is running on http://localhost:${PORT}`);
 });
