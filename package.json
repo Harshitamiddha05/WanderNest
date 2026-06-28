@@ -9,6 +9,9 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "cors": "^2.8.6",
+    "dotenv": "^17.4.2",
+    "express": "^5.2.1",
     "next": "16.2.9",
     "next-themes": "^0.4.6",
     "react": "19.2.4",
@@ -22,7 +25,22 @@
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "16.2.9",
+    "nodemon": "^3.1.14",
     "tailwindcss": "^4",
     "typescript": "^5"
-  }
+  },
+  "description": "WanderNest is an AI-powered review intelligence platform designed for homestay and eco-tourism businesses.",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Harshitamiddha05/WanderNest.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/Harshitamiddha05/WanderNest/issues"
+  },
+  "homepage": "https://github.com/Harshitamiddha05/WanderNest#readme"
 }
