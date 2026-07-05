@@ -105,3 +105,21 @@ npm run dev
 Frontend runs on:
 
 http://localhost:3000
+
+### MongoDB Integration
+- Connected the Express.js backend to MongoDB Atlas using Mongoose.
+- Configured environment variables for secure database connectivity.
+- Created a Review schema with field validation.
+
+### CRUD Operations
+- Implemented Create, Read, Update, Delete, and Search APIs for reviews.
+- Added proper error handling and validation.
+
+### API Testing
+- Verified all REST API endpoints using Postman.
+- Confirmed successful interaction with MongoDB Atlas.
+
+### Frontend Integration
+- Connected the Next.js frontend to the backend API using Axios.
+- Displayed live review data fetched from MongoDB Atlas.
+- Successfully verified end-to-end frontend and backend communication.
