@@ -2,9 +2,10 @@ const errorHandler = require("./middleware/errorHandler");
 const express = require("express");
 const cors = require("cors");
 require("dotenv").config();
+const connectDB = require("./config/db");
 
 const app = express();
-
+connectDB();
 // Import Routes
 const reviewRoutes = require("./routes/reviewRoutes");
 

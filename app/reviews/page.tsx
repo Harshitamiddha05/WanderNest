@@ -7,7 +7,7 @@ import Footer from "@/components/Footer";
 import { Loader } from "@/components/ui/Loader";
 
 interface Review {
-  id: number;
+  _id: string;
   review: string;
   sentiment: string;
   theme: string;
@@ -67,7 +67,7 @@ export default function ReviewsPage() {
             <tbody>
               {reviews.map((review) => (
                 <tr
-                  key={review.id}
+                  key={review._id}
                   className="border-b dark:border-gray-700"
                 >
                   <td className="p-3">{review.review}</td>
