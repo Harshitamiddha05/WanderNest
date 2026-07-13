@@ -1,3 +1,5 @@
+const session = require("express-session");
+const passport = require("./config/passport");
 const errorHandler = require("./middleware/errorHandler");
 const express = require("express");
 const cors = require("cors");
@@ -12,6 +14,17 @@ const authRoutes = require("./routes/authRoutes");
 // Middleware
 app.use(cors());
 app.use(express.json());
+app.use(
+  session({
+    secret: "wandernest-secret",
+    resave: false,
+    saveUninitialized: false,
+  })
+);
+
+
+app.use(passport.initialize());
+app.use(passport.session());
 
 // Home Route
 app.get("/", (req, res) => {
