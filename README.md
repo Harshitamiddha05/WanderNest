@@ -1,125 +1,300 @@
-# WanderNest
+# 🌿 WanderNest
 
-WanderNest is an AI-powered review intelligence platform designed for homestay and eco-tourism businesses.
+WanderNest is an AI-powered review intelligence platform designed for homestay and eco-tourism businesses. The platform enables property owners to analyze customer reviews, understand guest sentiment, identify recurring themes, manage reviews, and securely authenticate users through JWT-based authentication.
 
-## Overview
+---
 
-The platform helps property owners analyze guest reviews using AI to understand customer sentiment, identify recurring themes, and generate professional responses.
+# 📌 Project Overview
 
-## Features
+WanderNest helps eco-tourism businesses make data-driven decisions by leveraging AI and modern web technologies. The platform provides review management, sentiment analysis, authentication, and an interactive dashboard to improve customer experience.
 
-* Sentiment Analysis
-* Theme Detection
-* AI Response Generation
-* Review Analytics Dashboard
-* Responsive User Interface
+---
 
-## Tech Stack
+# 🚀 Features
 
-### Frontend
+## Review Management
 
-* Next.js 16
-* React
-* TypeScript
-* Tailwind CSS
+- Create Reviews
+- View All Reviews
+- View Review by ID
+- Update Reviews
+- Delete Reviews
+- Search Reviews
 
-### Planned Backend & AI Integration
+## AI Features
 
-* Node.js
-* Express.js
-* MongoDB Atlas
-* LLM Integration
+- Sentiment Analysis
+- Theme Detection
+- AI Response Generation
+- Review Analytics Dashboard
 
-## Project Structure
+## Authentication & Security
 
-app/
-components/
-public/
+- User Registration
+- User Login
+- Password Hashing using bcrypt
+- JWT Authentication
+- Protected API Routes
+- Duplicate Email Validation
+- Invalid Login Handling
 
+## User Interface
 
-## Pages
+- Responsive Design
+- Modern Dashboard
+- Mobile Friendly
+- Dark Mode Support (if enabled)
 
-* Home
-* About
-* Dashboard
-* Login
+---
 
-## Internship Module
+# 🛠 Tech Stack
 
-AI-Assisted Full Stack Web Development
+## Frontend
 
-### Week 2 Deliverables
+- Next.js 16
+- React
+- TypeScript
+- Tailwind CSS
+- Axios
 
-* Responsive Navbar
-* Hero Section
-* Reusable Card Component
-* Footer Component
-* About Page
-* Dashboard Page
-* Login Page
-* Responsive Design using Tailwind CSS
+## Backend
 
-## Run Locally
+- Node.js
+- Express.js
+- MongoDB
+- Mongoose
+- JWT
+- bcrypt
 
+## Development Tools
+
+- Git
+- GitHub
+- Postman
+- MongoDB Compass / MongoDB Atlas
+
+---
+
+# 📂 Project Structure
+
+```
+WanderNest
+│
+├── app
+├── components
+├── public
+│
+├── backend
+│   ├── config
+│   ├── controllers
+│   ├── middleware
+│   ├── models
+│   ├── routes
+│   ├── server.js
+│   └── package.json
+│
+├── README.md
+└── package.json
+```
+
+---
+
+# 📄 Pages
+
+- Home
+- About
+- Dashboard
+- Login
+- Reviews
+
+---
+
+# 🔗 API Endpoints
+
+## Authentication APIs
+
+| Method | Endpoint | Description |
+|----------|----------------------|-------------------------|
+| POST | /api/auth/register | Register User |
+| POST | /api/auth/login | Login User |
+| GET | /api/auth/profile | Protected Profile Route |
+
+---
+
+## Review APIs
+
+| Method | Endpoint | Description |
+|----------|---------------------------|----------------|
+| GET | /api/reviews | Get All Reviews |
+| GET | /api/reviews/:id | Get Review by ID |
+| POST | /api/reviews | Create Review |
+| PUT | /api/reviews/:id | Update Review |
+| DELETE | /api/reviews/:id | Delete Review |
+| GET | /api/reviews/search?q= | Search Reviews |
+
+---
+
+# 📦 Installation
+
+## Clone Repository
+
+```bash
+git clone https://github.com/Harshitamiddha05/WanderNest.git
+```
+
+## Navigate
+
+```bash
+cd WanderNest
+```
+
+---
+
+# ▶ Frontend Setup
+
+Install dependencies
+
+```bash
 npm install
+```
+
+Run
+
+```bash
 npm run dev
+```
 
-Open Browser and Visit:
+Frontend:
 
+```
 http://localhost:3000
+```
 
-## Backend Setup
+---
 
-### Navigate to backend
+# ▶ Backend Setup
 
+Navigate
+
+```bash
 cd backend
+```
 
-### Install dependencies
+Install dependencies
 
+```bash
 npm install
+```
 
-### Create environment file
+Create a `.env` file
 
-Create a `.env` file inside the backend folder.
-
-Example:
-
+```env
 PORT=5000
+MONGODB_URI=your_mongodb_connection_string
+JWT_SECRET=your_secret_key
+```
 
-### Start backend server
+Run Backend
 
+```bash
 npm run dev
+```
 
-Backend runs on:
+Backend:
 
+```
 http://localhost:5000
+```
 
+---
 
-### Frontend
+# 🗄 Database
 
-From the project root:
+MongoDB is used to store:
 
-npm install
-npm run dev
+- User Accounts
+- Reviews
+- Authentication Data
 
-Frontend runs on:
+Mongoose is used for schema definition and validation.
 
-http://localhost:3000
+---
 
-### MongoDB Integration
-- Connected the Express.js backend to MongoDB Atlas using Mongoose.
-- Configured environment variables for secure database connectivity.
-- Created a Review schema with field validation.
+# 🔐 Authentication Flow
 
-### CRUD Operations
-- Implemented Create, Read, Update, Delete, and Search APIs for reviews.
-- Added proper error handling and validation.
+1. User Registration
+2. Password hashed using bcrypt
+3. User Login
+4. JWT Token Generated
+5. Protected Routes verified using JWT middleware
 
-### API Testing
-- Verified all REST API endpoints using Postman.
-- Confirmed successful interaction with MongoDB Atlas.
+---
 
-### Frontend Integration
-- Connected the Next.js frontend to the backend API using Axios.
-- Displayed live review data fetched from MongoDB Atlas.
-- Successfully verified end-to-end frontend and backend communication.
+# 🧪 API Testing
+
+All APIs were tested using Postman.
+
+Verified APIs include:
+
+- User Registration
+- User Login
+- Protected Route
+- Create Review
+- Get Reviews
+- Update Review
+- Delete Review
+- Search Reviews
+
+---
+
+# 📚 Internship Progress
+
+## Week 2
+
+- Responsive UI
+- Navbar
+- Hero Section
+- Footer
+- Dashboard
+- About Page
+
+## Week 5
+
+- MongoDB Integration
+- Mongoose Models
+- CRUD APIs
+- Search API
+- Frontend-Backend Integration
+- Postman Testing
+
+## Week 6
+
+- User Authentication
+- JWT Implementation
+- Password Hashing (bcrypt)
+- Protected Routes
+- Authentication Middleware
+- Secure Login & Registration
+
+---
+
+# 👩‍💻 Author
+
+**Harshita Middha**
+
+AI-Assisted Full Stack Web Development Internship
+
+TBI-GEU
+
+---
+
+# ⭐ Future Enhancements
+
+- Google OAuth Login
+- GitHub OAuth Login
+- AI Chat Assistant
+- Review Recommendation Engine
+- Advanced Analytics Dashboard
+- Email Verification
+- Password Reset
+- Role-Based Authorization
