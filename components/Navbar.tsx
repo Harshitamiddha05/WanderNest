@@ -1,74 +1,154 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { usePathname, useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 import { ThemeToggle } from "@/components/theme";
 
-export default function Navbar() {
-  const [menuOpen, setMenuOpen] = useState(false);
+interface User {
+  name: string;
+  email: string;
+}
 
-  const navLinks = [
-    { href: "/", label: "Home" },
-    { href: "/about", label: "About" },
-    { href: "/dashboard", label: "Dashboard" },
-    { href: "/login", label: "Login" },
-  ];
+export default function Navbar() {
+  const router = useRouter();
+  const pathname = usePathname();
+
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [user, setUser] = useState<User | null>(null);
+
+  useEffect(() => {
+    const loadUser = () => {
+      const storedUser = localStorage.getItem("user");
+
+      if (storedUser) {
+        setUser(JSON.parse(storedUser));
+      } else {
+        setUser(null);
+      }
+    };
+
+    loadUser();
+
+    window.addEventListener("storage", loadUser);
+
+    return () => {
+      window.removeEventListener("storage", loadUser);
+    };
+  }, [pathname]);
+
+  const logout = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
+
+    setUser(null);
+    setMenuOpen(false);
+
+    router.push("/login");
+  };
+
+  const navLinks = user
+    ? [
+        { href: "/", label: "Home" },
+        { href: "/about", label: "About" },
+        { href: "/dashboard", label: "Dashboard" },
+      ]
+    : [
+        { href: "/", label: "Home" },
+        { href: "/about", label: "About" },
+        { href: "/login", label: "Login" },
+        { href: "/register", label: "Register" },
+      ];
 
   return (
     <nav className="bg-white dark:bg-gray-900 border-b border-green-100 dark:border-gray-800 sticky top-0 z-50 shadow-sm">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
-
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-2 shrink-0">
+          <Link href="/" className="flex items-center gap-2">
             <span className="text-2xl">🌿</span>
-            <span className="text-xl font-bold text-green-700 dark:text-green-400 tracking-tight">
+
+            <span className="text-xl font-bold text-green-700 dark:text-green-400">
               WanderNest
             </span>
           </Link>
 
-          {/* Desktop Nav Links */}
-          <div className="hidden md:flex items-center gap-1">
+          {/* Desktop Navigation */}
+          <div className="hidden md:flex items-center gap-2">
             {navLinks.map((link) => (
               <Link
                 key={link.href}
                 href={link.href}
-                className="px-4 py-2 text-sm font-medium text-gray-600 dark:text-gray-300 rounded-lg hover:text-green-700 dark:hover:text-green-400 hover:bg-green-50 dark:hover:bg-gray-800 transition-colors"
+                className={`px-4 py-2 rounded-lg text-sm font-medium transition ${
+                  pathname === link.href
+                    ? "bg-green-100 text-green-700 dark:bg-gray-800 dark:text-green-400"
+                    : "text-gray-600 dark:text-gray-300 hover:bg-green-50 hover:text-green-700 dark:hover:bg-gray-800 dark:hover:text-green-400"
+                }`}
               >
                 {link.label}
               </Link>
             ))}
           </div>
 
-          {/* Right: Profile icon + mobile hamburger */}
-         <div className="flex items-center gap-3">
+          {/* Right Side */}
+          <div className="flex items-center gap-3">
+            <ThemeToggle />
 
-        {/* Dark / Light Mode Toggle */}
-        <ThemeToggle />
+            {user && (
+              <>
+                <div className="hidden md:flex items-center gap-3">
+                  <div className="flex items-center gap-2">
+                    <div className="w-9 h-9 rounded-full bg-green-600 text-white flex items-center justify-center font-bold">
+                      {user.name.charAt(0).toUpperCase()}
+                    </div>
 
-        {/* Profile icon */}
-        <button
-              aria-label="Profile menu"
-              className="hidden md:flex items-center justify-center w-9 h-9 rounded-full bg-green-100 text-green-700 dark:text-green-400 hover:bg-green-200 dark:hover:bg-gray-800 transition-colors"
-            >
-              <svg xmlns="http://www.w3.org/2000/svg" className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z"/>
-              </svg>
-            </button>
+                    <span className="text-sm text-gray-700 dark:text-gray-200">
+                      {user.name}
+                    </span>
+                  </div>
 
-            {/* Hamburger for mobile */}
+                  <button
+                    onClick={logout}
+                    className="px-3 py-2 rounded-lg text-sm font-medium text-red-600 hover:bg-red-50 dark:hover:bg-gray-800"
+                  >
+                    Logout
+                  </button>
+                </div>
+              </>
+            )}
+
+            {/* Mobile Menu Button */}
             <button
+              className="md:hidden p-2 rounded-lg hover:bg-green-50 dark:hover:bg-gray-800"
               onClick={() => setMenuOpen(!menuOpen)}
-              aria-label="Toggle menu"
-              className="md:hidden flex items-center justify-center w-9 h-9 rounded-lg text-gray-600 dark:text-gray-300 hover:bg-green-50 dark:hover:bg-gray-800 transition-colors"
             >
               {menuOpen ? (
-                <svg xmlns="http://www.w3.org/2000/svg" className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                <svg
+                  className="w-6 h-6"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth={2}
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M6 18L18 6M6 6l12 12"
+                  />
                 </svg>
               ) : (
-                <svg xmlns="http://www.w3.org/2000/svg" className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+                <svg
+                  className="w-6 h-6"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth={2}
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M4 6h16M4 12h16M4 18h16"
+                  />
                 </svg>
               )}
             </button>
@@ -78,31 +158,48 @@ export default function Navbar() {
 
       {/* Mobile Menu */}
       {menuOpen && (
-        <div className="md:hidden border-t border-green-100 dark:border-gray-800 bg-white dark:bg-gray-900 px-4 py-3 flex flex-col gap-1">
+        <div className="md:hidden border-t border-green-100 dark:border-gray-800 bg-white dark:bg-gray-900 px-4 py-4 space-y-2">
           {navLinks.map((link) => (
             <Link
               key={link.href}
               href={link.href}
               onClick={() => setMenuOpen(false)}
-              className="px-4 py-2 text-sm font-medium text-gray-600 dark:text-gray-300 rounded-lg hover:text-green-700 dark:hover:text-green-400 hover:bg-green-50 dark:hover:bg-gray-800 transition-colors"
+              className="block px-4 py-2 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-green-50 dark:hover:bg-gray-800"
             >
               {link.label}
             </Link>
           ))}
-          {/* Mobile Theme Toggle */}
-<div className="px-4 py-2 mt-1 border-t border-green-50 dark:border-gray-800">
-  <ThemeToggle />
-</div>
 
-{/* Mobile profile row */}
-<div className="flex items-center gap-3 px-4 py-2">
-  <div className="w-8 h-8 rounded-full bg-green-100 flex items-center justify-center text-green-700 dark:text-green-400">
-    <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
-      <path d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z"/>
-    </svg>
-  </div>
-  <span className="text-sm text-gray-500 dark:text-gray-300">My Account</span>
-</div>
+          <div className="pt-2">
+            <ThemeToggle />
+          </div>
+
+          {user ? (
+            <>
+              <div className="flex items-center gap-3 pt-3">
+                <div className="w-9 h-9 rounded-full bg-green-600 text-white flex items-center justify-center font-bold">
+                  {user.name.charAt(0).toUpperCase()}
+                </div>
+
+                <div>
+                  <p className="text-sm font-semibold text-gray-800 dark:text-white">
+                    {user.name}
+                  </p>
+
+                  <p className="text-xs text-gray-500">{user.email}</p>
+                </div>
+              </div>
+
+              <button
+                onClick={logout}
+                className="w-full mt-3 bg-red-600 hover:bg-red-700 text-white py-2 rounded-lg"
+              >
+                Logout
+              </button>
+            </>
+          ) : (
+            <div className="pt-2 text-sm text-gray-500">Guest</div>
+          )}
         </div>
       )}
     </nav>

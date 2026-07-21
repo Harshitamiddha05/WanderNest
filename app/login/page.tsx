@@ -1,6 +1,9 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
+import axios from "axios";
+import Link from "next/link";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 
@@ -8,12 +11,48 @@ export default function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+  const router = useRouter();
+  const API_URL = process.env.NEXT_PUBLIC_API_URL!;
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    // Auth logic will be implemented in Week 6 (Authentication & Security)
-    alert("Login functionality coming in Week 6!");
-  };
+  const handleSubmit = async (e: React.FormEvent) => {
+  e.preventDefault();
+
+  if (!email.trim()) {
+    alert("Please enter your email.");
+    return;
+  }
+
+  if (!password.trim()) {
+    alert("Please enter your password.");
+    return;
+  }
+
+  try {
+    const response = await axios.post(`${API_URL}/login`, {
+      email,
+      password,
+    });
+
+    console.log(response.data);
+
+    const { token, user, message } = response.data;
+
+    localStorage.setItem("token", token);
+    localStorage.setItem("user", JSON.stringify(user));
+
+    alert(message);
+
+    router.push("/dashboard");
+  } catch (error: any) {
+    console.error(error);
+
+    if (error.response) {
+      alert(error.response.data.message);
+    } else {
+      alert("Unable to connect to the backend.");
+    }
+  }
+};
 
   return (
     <div className="min-h-screen flex flex-col bg-gray-50">
@@ -112,14 +151,12 @@ export default function LoginPage() {
             {/* Register prompt */}
             <p className="text-center text-sm text-gray-400">
               Don&apos;t have an account?{" "}
-              <a href="#" className="text-green-600 hover:text-green-700 font-semibold">
-                Create one
-              </a>
-            </p>
-
-            {/* Placeholder notice */}
-            <p className="text-center text-xs text-gray-300 mt-4">
-              🔒 Full authentication coming in Week 6
+              <Link
+            href="/register"
+            className="text-green-600 hover:text-green-700 font-semibold"
+            >
+            Create one
+            </Link>
             </p>
           </div>
 
