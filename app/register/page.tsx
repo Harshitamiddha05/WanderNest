@@ -44,11 +44,11 @@ const handleSubmit = async (e: React.FormEvent) => {
   }
 
   try {
-    const response = await axios.post(`${API_URL}/register`, {
-      name,
-      email,
-      password,
-    });
+    const response = await axios.post(`${API_URL}/auth/register`, {
+  name,
+  email,
+  password,
+});
 
     alert(response.data.message || "Registration Successful!");
 

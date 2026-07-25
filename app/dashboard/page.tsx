@@ -1,4 +1,5 @@
 "use client";
+import axios from "axios";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import Navbar from "@/components/Navbar";
@@ -11,6 +12,13 @@ interface MetricCardProps {
   color: string;
   bg: string;
   percent: number;
+}
+interface Review {
+  _id: string;
+  review: string;
+  sentiment: "Positive" | "Neutral" | "Negative";
+  theme: string;
+  rating: number;
 }
 
 function MetricCard({
@@ -50,79 +58,6 @@ function MetricCard({
   );
 }
 
-const metrics = [
-  {
-    label: "Total Reviews",
-    value: 250,
-    emoji: "📋",
-    color: "text-gray-500",
-    bg: "bg-gray-400",
-    percent: 100,
-  },
-  {
-    label: "Positive Reviews",
-    value: 180,
-    emoji: "😊",
-    color: "text-green-600",
-    bg: "bg-green-500",
-    percent: 72,
-  },
-  {
-    label: "Neutral Reviews",
-    value: 40,
-    emoji: "😐",
-    color: "text-yellow-600",
-    bg: "bg-yellow-400",
-    percent: 16,
-  },
-  {
-    label: "Negative Reviews",
-    value: 30,
-    emoji: "😞",
-    color: "text-red-500",
-    bg: "bg-red-400",
-    percent: 12,
-  },
-];
-
-const recentReviews = [
-  {
-    review:
-      "The stay was absolutely wonderful. The host was warm and the surroundings were beautiful.",
-    sentiment: "Positive",
-    theme: "Host",
-    sentiment_color: "bg-green-100 text-green-700",
-  },
-  {
-    review:
-      "Room was decent but could use better cleaning. Food was good though.",
-    sentiment: "Neutral",
-    theme: "Cleanliness",
-    sentiment_color: "bg-yellow-100 text-yellow-700",
-  },
-  {
-    review:
-      "Location is perfect, very close to the waterfall trek. Highly recommend!",
-    sentiment: "Positive",
-    theme: "Location",
-    sentiment_color: "bg-green-100 text-green-700",
-  },
-  {
-    review:
-      "The food served was absolutely delicious — fresh and organic.",
-    sentiment: "Positive",
-    theme: "Food",
-    sentiment_color: "bg-green-100 text-green-700",
-  },
-  {
-    review:
-      "Checkout was delayed and no one was available to help with luggage.",
-    sentiment: "Negative",
-    theme: "Experience",
-    sentiment_color: "bg-red-100 text-red-700",
-  },
-];
-
 export default function DashboardPage() {
   const router = useRouter();
 
@@ -131,19 +66,60 @@ export default function DashboardPage() {
     email: string;
   } | null>(null);
 
-  useEffect(() => {
-    const token = localStorage.getItem("token");
-    const userData = localStorage.getItem("user");
+  const [stats, setStats] = useState({
+  totalReviews: 0,
+  positive: 0,
+  neutral: 0,
+  negative: 0,
+  averageRating: 0,
+});
 
-    if (!token) {
-      router.replace("/login");
-      return;
-    }
+const [loadingStats, setLoadingStats] = useState(true);
+const [recentReviews, setRecentReviews] = useState<Review[]>([]);
+useEffect(() => {
+  const token = localStorage.getItem("token");
+  const userData = localStorage.getItem("user");
 
-    if (userData) {
-      setUser(JSON.parse(userData));
+  // Check if user is logged in
+  if (!token) {
+    router.replace("/login");
+    return;
+  }
+
+  // Load user details
+  if (userData) {
+    setUser(JSON.parse(userData));
+  }
+
+  // Fetch dashboard statistics
+  const fetchDashboardStats = async () => {
+    try {
+      const res = await axios.get(
+        `${process.env.NEXT_PUBLIC_API_URL}/dashboard/stats`
+      );
+
+      setStats(res.data.data);
+    } catch (err) {
+      console.error("Dashboard Error:", err);
+    } finally {
+      setLoadingStats(false);
     }
-  }, [router]);
+  };
+
+  const fetchRecentReviews = async () => {
+  try {
+    const res = await axios.get(
+      `${process.env.NEXT_PUBLIC_API_URL}/dashboard/recent-reviews`
+    );
+
+    setRecentReviews(res.data.data);
+  } catch (err) {
+    console.error(err);
+  }
+};
+fetchDashboardStats();
+fetchRecentReviews();
+}, [router]);
 
   if (!user) {
     return (
@@ -152,7 +128,49 @@ export default function DashboardPage() {
       </div>
     );
   }
-
+  const metrics = [
+  {
+    label: "Total Reviews",
+    value: stats.totalReviews,
+    emoji: "📋",
+    color: "text-gray-500",
+    bg: "bg-gray-400",
+    percent: 100,
+  },
+  {
+    label: "Positive Reviews",
+    value: stats.positive,
+    emoji: "😊",
+    color: "text-green-600",
+    bg: "bg-green-500",
+    percent:
+      stats.totalReviews === 0
+        ? 0
+        : Math.round((stats.positive / stats.totalReviews) * 100),
+  },
+  {
+    label: "Neutral Reviews",
+    value: stats.neutral,
+    emoji: "😐",
+    color: "text-yellow-600",
+    bg: "bg-yellow-400",
+    percent:
+      stats.totalReviews === 0
+        ? 0
+        : Math.round((stats.neutral / stats.totalReviews) * 100),
+  },
+  {
+    label: "Negative Reviews",
+    value: stats.negative,
+    emoji: "😞",
+    color: "text-red-500",
+    bg: "bg-red-400",
+    percent:
+      stats.totalReviews === 0
+        ? 0
+        : Math.round((stats.negative / stats.totalReviews) * 100),
+  },
+];
   return (
     <div className="min-h-screen flex flex-col bg-gray-50 dark:bg-gray-950 transition-colors duration-300">
       <Navbar />
@@ -178,14 +196,24 @@ export default function DashboardPage() {
     <p className="text-xs text-gray-400 dark:text-gray-500">
       {user.email}
     </p>
+
+    <p className="mt-2 text-sm text-yellow-500 font-semibold">
+    ⭐ Average Rating: {stats.averageRating.toFixed(1)} / 5
+    </p>
   </div>
 </div>
 
           {/* Metric Cards */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-            {metrics.map((m) => (
-              <MetricCard key={m.label} {...m} />
-            ))}
+            {loadingStats ? (
+  <div className="col-span-4 text-center py-8 text-gray-500">
+    Loading dashboard...
+  </div>
+) : (
+  metrics.map((m) => (
+    <MetricCard key={m.label} {...m} />
+  ))
+)}
           </div>
 
           {/* Sentiment Breakdown */}
@@ -195,17 +223,34 @@ export default function DashboardPage() {
             </h2>
 
             <div className="flex rounded-full overflow-hidden h-4 w-full">
-              <div className="bg-green-500" style={{ width: "72%" }} />
-              <div className="bg-yellow-400" style={{ width: "16%" }} />
-              <div className="bg-red-400" style={{ width: "12%" }} />
+              <div className="bg-green-500" style={{
+  width: `${metrics[1].percent}%`,}} />
+              <div className="bg-yellow-400" style={{
+  width: `${metrics[2].percent}%`,
+}} />
+              <div className="bg-red-400" style={{
+  width: `${metrics[3].percent}%`,
+}}/>
             </div>
 
             <div className="flex gap-5 mt-3 flex-wrap">
               {[
-                { label: "Positive", color: "bg-green-500", val: "72%" },
-                { label: "Neutral", color: "bg-yellow-400", val: "16%" },
-                { label: "Negative", color: "bg-red-400", val: "12%" },
-              ].map((item) => (
+  {
+    label: "Positive",
+    color: "bg-green-500",
+    val: `${metrics[1].percent}%`,
+  },
+  {
+    label: "Neutral",
+    color: "bg-yellow-400",
+    val: `${metrics[2].percent}%`,
+  },
+  {
+    label: "Negative",
+    color: "bg-red-400",
+    val: `${metrics[3].percent}%`,
+  },
+].map((item) => (
                 <div
                   key={item.label}
                   className="flex items-center gap-2 text-xs text-gray-500 dark:text-gray-400"
@@ -246,37 +291,53 @@ export default function DashboardPage() {
                   </tr>
                 </thead>
 
-                <tbody className="divide-y divide-gray-50 dark:divide-gray-800">
-                  {recentReviews.map((r, i) => (
-                    <tr
-                      key={i}
-                      className="hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
-                    >
-                      <td className="px-6 py-4 text-gray-600 dark:text-gray-300 max-w-xs">
-                        {r.review}
-                      </td>
+<tbody className="divide-y divide-gray-50 dark:divide-gray-800">
+  {recentReviews.length === 0 ? (
+    <tr>
+      <td
+        colSpan={3}
+        className="text-center py-10 text-gray-500 dark:text-gray-400"
+      >
+        No reviews available.
+      </td>
+    </tr>
+  ) : (
+    recentReviews.map((r) => (
+      <tr
+        key={r._id}
+        className="hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
+      >
+        <td className="px-6 py-4 text-gray-600 dark:text-gray-300 max-w-xs">
+          {r.review}
+        </td>
 
-                      <td className="px-6 py-4">
-                        <span
-                          className={`inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold ${r.sentiment_color}`}
-                        >
-                          {r.sentiment}
-                        </span>
-                      </td>
+        <td className="px-6 py-4">
+          <span
+            className={`inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold ${
+              r.sentiment === "Positive"
+                ? "bg-green-100 text-green-700"
+                : r.sentiment === "Neutral"
+                ? "bg-yellow-100 text-yellow-700"
+                : "bg-red-100 text-red-700"
+            }`}
+          >
+            {r.sentiment}
+          </span>
+        </td>
 
-                      <td className="px-6 py-4 text-gray-500 dark:text-gray-400">
-                        {r.theme}
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
+        <td className="px-6 py-4 text-gray-500 dark:text-gray-400">
+          {r.theme}
+        </td>
+      </tr>
+    ))
+  )}
+</tbody>
               </table>
             </div>
           </div>
 
         </div>
       </main>
-
       <Footer />
     </div>
   );

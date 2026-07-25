@@ -28,11 +28,10 @@ export default function LoginPage() {
   }
 
   try {
-    const response = await axios.post(`${API_URL}/login`, {
-      email,
-      password,
+    const response = await axios.post(`${API_URL}/auth/login`, {
+    email,
+    password,
     });
-
     console.log(response.data);
 
     const { token, user, message } = response.data;

@@ -1,3 +1,4 @@
+const dashboardRoutes = require("./routes/dashboardRoutes");
 const session = require("express-session");
 const passport = require("./config/passport");
 const errorHandler = require("./middleware/errorHandler");
@@ -44,6 +45,7 @@ app.use("/api/ai", aiRoutes);
 // Port
 const PORT = process.env.PORT || 5000;
 app.use(errorHandler);
+app.use("/api/dashboard", dashboardRoutes);
 app.listen(PORT, () => {
   console.log(`✅ Server is running on http://localhost:${PORT}`);
 });
