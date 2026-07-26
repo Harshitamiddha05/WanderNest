@@ -1,6 +1,6 @@
 const GoogleStrategy = require("passport-google-oauth20").Strategy;
 const passport = require("passport");
-
+const User = require("../models/User");
 // Only configure Google OAuth if credentials are available
 if (
   process.env.GOOGLE_CLIENT_ID &&
@@ -16,14 +16,20 @@ if (
       },
       async (accessToken, refreshToken, profile, done) => {
         try {
-          const user = {
-            googleId: profile.id,
-            name: profile.displayName,
-            email: profile.emails[0].value,
-            provider: "google",
-          };
 
-          return done(null, user);
+let user = await User.findOne({ email: profile.emails[0].value });
+
+if (!user) {
+    user = await User.create({
+        name: profile.displayName,
+        email: profile.emails[0].value,
+        googleId: profile.id,
+        provider: "google",
+    });
+}
+
+return done(null, user);
+
         } catch (error) {
           return done(error, null);
         }

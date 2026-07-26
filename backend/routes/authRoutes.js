@@ -1,22 +1,27 @@
+const jwt = require("jsonwebtoken"); 
 const passport = require("passport");
 const express = require("express");
 const router = express.Router();
 
-const { register, login } = require("../controllers/authController");
+const authController = require("../controllers/authController");
+
+console.log(authController);
+
+const { register, login, getProfile } = authController;
 const protect = require("../middleware/authMiddleware");
 const authLimiter = require("../middleware/rateLimiter");
-
+console.log("register:", typeof register);
+console.log("login:", typeof login);
+console.log("getProfile:", typeof getProfile);
+console.log("protect:", typeof protect);
+console.log("authLimiter:", typeof authLimiter);
+console.log("AUTH ROUTES LOADED");
 // Public Routes (Rate Limited)
 router.post("/register", authLimiter, register);
 router.post("/login", authLimiter, login);
 
 // Protected Route
-router.get("/profile", protect, (req, res) => {
-  res.status(200).json({
-    message: "Protected Route Accessed",
-    user: req.user,
-  });
-});
+router.get("/profile", protect, getProfile);
 // Google OAuth Login
 router.get(
   "/google",
@@ -25,7 +30,6 @@ router.get(
   })
 );
 
-
 // Google OAuth Callback
 router.get(
   "/google/callback",
@@ -33,12 +37,15 @@ router.get(
     failureRedirect: "/login",
   }),
   (req, res) => {
+    const token = jwt.sign(
+      { id: req.user._id },
+      process.env.JWT_SECRET,
+      { expiresIn: "7d" }
+    );
 
-    res.json({
-      message: "Google Login Successful",
-      user: req.user
-    });
-
+    res.redirect(
+      `http://localhost:3000/auth/success?token=${token}`
+    );
   }
 );
 module.exports = router;

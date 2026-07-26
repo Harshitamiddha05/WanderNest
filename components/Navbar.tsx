@@ -31,21 +31,23 @@ export default function Navbar() {
     loadUser();
 
     window.addEventListener("storage", loadUser);
-
+    window.addEventListener("userChanged", loadUser);
     return () => {
       window.removeEventListener("storage", loadUser);
+      window.removeEventListener("userChanged", loadUser);
     };
   }, [pathname]);
 
   const logout = () => {
-    localStorage.removeItem("token");
-    localStorage.removeItem("user");
+  localStorage.removeItem("token");
+  localStorage.removeItem("user");
 
-    setUser(null);
-    setMenuOpen(false);
+  window.dispatchEvent(new Event("userChanged"));
 
-    router.push("/login");
-  };
+  setMenuOpen(false);
+
+  router.push("/login");
+};
 
   const navLinks = user
     ? [

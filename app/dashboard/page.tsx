@@ -78,7 +78,7 @@ const [loadingStats, setLoadingStats] = useState(true);
 const [recentReviews, setRecentReviews] = useState<Review[]>([]);
 useEffect(() => {
   const token = localStorage.getItem("token");
-  const userData = localStorage.getItem("user");
+  //const userData = localStorage.getItem("user");
 
   // Check if user is logged in
   if (!token) {
@@ -86,17 +86,40 @@ useEffect(() => {
     return;
   }
 
-  // Load user details
-  if (userData) {
-    setUser(JSON.parse(userData));
+
+  const fetchUser = async () => {
+  try {
+    const res = await axios.get(
+      `${process.env.NEXT_PUBLIC_API_URL}/auth/profile`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+
+    setUser(res.data.user);
+    localStorage.setItem(
+  "user",
+  JSON.stringify(res.data.user)
+);
+  } catch (err) {
+    console.error(err);
+    router.replace("/login");
   }
+};
 
   // Fetch dashboard statistics
   const fetchDashboardStats = async () => {
     try {
       const res = await axios.get(
-        `${process.env.NEXT_PUBLIC_API_URL}/dashboard/stats`
-      );
+  `${process.env.NEXT_PUBLIC_API_URL}/dashboard/stats`,
+  {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  }
+);
 
       setStats(res.data.data);
     } catch (err) {
@@ -109,14 +132,20 @@ useEffect(() => {
   const fetchRecentReviews = async () => {
   try {
     const res = await axios.get(
-      `${process.env.NEXT_PUBLIC_API_URL}/dashboard/recent-reviews`
-    );
+  `${process.env.NEXT_PUBLIC_API_URL}/dashboard/recent-reviews`,
+  {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  }
+);
 
     setRecentReviews(res.data.data);
   } catch (err) {
     console.error(err);
   }
 };
+fetchUser();
 fetchDashboardStats();
 fetchRecentReviews();
 }, [router]);

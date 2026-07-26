@@ -1,10 +1,10 @@
+require("dotenv").config();
 const dashboardRoutes = require("./routes/dashboardRoutes");
 const session = require("express-session");
 const passport = require("./config/passport");
 const errorHandler = require("./middleware/errorHandler");
 const express = require("express");
 const cors = require("cors");
-require("dotenv").config();
 const connectDB = require("./config/db");
 
 const app = express();

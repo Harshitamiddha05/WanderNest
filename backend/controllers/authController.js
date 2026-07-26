@@ -1,3 +1,4 @@
+console.log("AUTH CONTROLLER LOADED");
 const User = require("../models/User");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
@@ -82,8 +83,19 @@ const login = async (req, res) => {
     });
   }
 };
-
+// Get Logged-in User Profile
+const getProfile = async (req, res) => {
+  res.status(200).json({
+    user: req.user,
+  });
+};
+console.log({
+  register: typeof register,
+  login: typeof login,
+  getProfile: typeof getProfile,
+});
 module.exports = {
   register,
   login,
+  getProfile,
 };
