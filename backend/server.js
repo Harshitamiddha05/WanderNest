@@ -26,6 +26,10 @@ app.use(
     secret: process.env.SESSION_SECRET || "wandernest-secret",
     resave: false,
     saveUninitialized: false,
+    cookie: {
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "lax",
+    },
   })
 );
 
@@ -44,8 +48,8 @@ app.use("/api/auth", authRoutes);
 app.use("/api/ai", aiRoutes);
 // Port
 const PORT = process.env.PORT || 5000;
-app.use(errorHandler);
 app.use("/api/dashboard", dashboardRoutes);
+app.use(errorHandler);
 app.listen(PORT, () => {
   console.log(`✅ Server is running on http://localhost:${PORT}`);
 });

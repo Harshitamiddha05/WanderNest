@@ -1,6 +1,6 @@
 const GoogleStrategy = require("passport-google-oauth20").Strategy;
 const passport = require("passport");
-const User = require("../models/User");
+const User = require("../models/user");
 // Only configure Google OAuth if credentials are available
 if (
   process.env.GOOGLE_CLIENT_ID &&
@@ -26,6 +26,10 @@ if (!user) {
         googleId: profile.id,
         provider: "google",
     });
+}else if (!user.googleId) {
+  user.googleId = profile.id;
+  user.provider = "google";
+  await user.save();
 }
 
 return done(null, user);
@@ -44,8 +48,13 @@ passport.serializeUser((user, done) => {
   done(null, user);
 });
 
-passport.deserializeUser((user, done) => {
-  done(null, user);
+passport.deserializeUser(async (id, done) => {
+    try {
+    const user = await User.findById(id);
+    done(null, user);
+  } catch (err) {
+    done(err, null);
+  }
 });
 
 module.exports = passport;
