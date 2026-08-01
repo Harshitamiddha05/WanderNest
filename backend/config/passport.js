@@ -2,6 +2,9 @@ const GoogleStrategy = require("passport-google-oauth20").Strategy;
 const passport = require("passport");
 const User = require("../models/user");
 // Only configure Google OAuth if credentials are available
+console.log("CLIENT ID:", process.env.GOOGLE_CLIENT_ID ? "Found" : "Missing");
+console.log("CLIENT SECRET:", process.env.GOOGLE_CLIENT_SECRET ? "Found" : "Missing");
+console.log("CALLBACK URL:", process.env.GOOGLE_CALLBACK_URL ? process.env.GOOGLE_CALLBACK_URL : "Missing");
 if (
   process.env.GOOGLE_CLIENT_ID &&
   process.env.GOOGLE_CLIENT_SECRET &&
