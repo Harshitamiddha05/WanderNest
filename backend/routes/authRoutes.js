@@ -43,9 +43,12 @@ router.get(
       { expiresIn: "7d" }
     );
 
+    const frontendURL =
+    process.env.FRONTEND_URL || "http://localhost:3000";
+
     res.redirect(
-      `http://localhost:3000/auth/success?token=${token}`
-    );
+      `${frontendURL}/auth/success?token=${token}`
+  );
   }
 );
 module.exports = router;

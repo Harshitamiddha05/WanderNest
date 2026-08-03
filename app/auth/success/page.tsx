@@ -23,7 +23,7 @@ export default function AuthSuccess() {
 
         // Fetch logged-in user
         const res = await axios.get(
-          "http://localhost:5000/api/auth/profile",
+          `${process.env.NEXT_PUBLIC_API_URL}/auth/profile`,
           {
             headers: {
               Authorization: `Bearer ${token}`,

@@ -52,8 +52,9 @@ export default function LoginPage() {
     }
   }
 };
+
 const handleGoogleLogin = () => {
-  window.location.href = "http://localhost:5000/api/auth/google";
+  window.location.href = `${API_URL}/auth/google`;
 };
   return (
     <div className="min-h-screen flex flex-col bg-gray-50">
