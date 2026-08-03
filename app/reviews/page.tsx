@@ -29,7 +29,7 @@ export default function ReviewsPage() {
   const [reviews, setReviews] = useState<Review[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
-
+  const API_URL = process.env.NEXT_PUBLIC_API_URL!;
   const [reviewText, setReviewText] = useState("");
   const [analysis, setAnalysis] = useState<AIAnalysis | null>(null);
   const [analyzing, setAnalyzing] = useState(false);
@@ -45,7 +45,7 @@ export default function ReviewsPage() {
     setLoading(true);
 
     const response = await axios.get(
-      "http://localhost:5000/api/reviews"
+      `${API_URL}/reviews`
     );
 
     setReviews(response.data);
@@ -73,11 +73,11 @@ useEffect(() => {
 
     try {
       const response = await axios.post(
-        "http://localhost:5000/api/ai/review-analysis",
+        `${API_URL}/ai/review-analysis`,
         {
           review: reviewText,
-        }
-      );
+  }
+);
 
       setAnalysis(response.data.data);
     } catch (err) {
@@ -97,13 +97,13 @@ useEffect(() => {
 
     if (editingReview) {
       await axios.put(
-        `http://localhost:5000/api/reviews/${editingReview._id}`,
-        data
-      );
+        `${API_URL}/reviews/${editingReview._id}`,
+         data
+   );
     } else {
       await axios.post(
-        "http://localhost:5000/api/reviews",
-        data
+        `${API_URL}/reviews`,
+         data
       );
     }
 
@@ -126,7 +126,7 @@ const handleDeleteReview = async () => {
     setDeleting(true);
 
     await axios.delete(
-      `http://localhost:5000/api/reviews/${selectedReview._id}`
+      `${API_URL}/reviews/${selectedReview._id}`
     );
 
     await fetchReviews();
