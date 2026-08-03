@@ -1,6 +1,18 @@
 # 🌿 WanderNest
+AI-powered review intelligence platform for homestay and eco-tourism businesses built with Next.js, Express.js, MongoDB Atlas, Google OAuth, JWT Authentication, and Hugging Face AI.
 
 WanderNest is an AI-powered review intelligence platform designed for homestay and eco-tourism businesses. The platform enables property owners to analyze customer reviews, understand guest sentiment, identify recurring themes, manage reviews, and securely authenticate users through JWT-based authentication.
+
+## 🌐 Live Demo
+
+Frontend:
+https://wander-nest-iota.vercel.app
+
+Backend API:
+https://wandernest-backend-iota.onrender.com
+
+Repository:
+https://github.com/Harshitamiddha05/WanderNest
 
 ![Next.js](https://img.shields.io/badge/Next.js-16-black)
 ![React](https://img.shields.io/badge/React-19-blue)
@@ -26,7 +38,33 @@ WanderNest is an AI-powered review intelligence platform designed for homestay a
 WanderNest helps eco-tourism businesses make data-driven decisions by leveraging AI and modern web technologies. The platform provides review management, sentiment analysis, authentication, and an interactive dashboard to improve customer experience.
 
 ---
+# 🏗️ System Architecture
 
+```mermaid
+graph TD
+    A[User]
+    B[Next.js Frontend]
+    C[Express.js Backend]
+    D[MongoDB Atlas]
+    E[Google OAuth]
+    F[Hugging Face AI]
+
+    A --> B
+    B --> C
+    C --> D
+    C --> E
+    C --> F
+```
+
+### Architecture Overview
+
+- **Next.js Frontend** provides the user interface.
+- **Express.js Backend** handles APIs and business logic.
+- **MongoDB Atlas** stores user and review data.
+- **Google OAuth** provides secure authentication.
+- **Hugging Face AI** analyzes reviews and generates insights.
+
+---
 # 🚀 Features
 
 ## Review Management
