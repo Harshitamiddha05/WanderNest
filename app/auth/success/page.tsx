@@ -1,10 +1,10 @@
 "use client";
 
-import { useEffect } from "react";
+import { Suspense, useEffect } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import axios from "axios";
 
-export default function AuthSuccess() {
+function AuthSuccessContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
 
@@ -18,10 +18,8 @@ export default function AuthSuccess() {
       }
 
       try {
-        // Save token
         localStorage.setItem("token", token);
 
-        // Fetch logged-in user
         const res = await axios.get(
           `${process.env.NEXT_PUBLIC_API_URL}/auth/profile`,
           {
@@ -31,11 +29,7 @@ export default function AuthSuccess() {
           }
         );
 
-        // Save user
-        localStorage.setItem(
-          "user",
-          JSON.stringify(res.data.user)
-        );
+        localStorage.setItem("user", JSON.stringify(res.data.user));
         window.dispatchEvent(new Event("userChanged"));
 
         router.replace("/dashboard");
@@ -55,9 +49,21 @@ export default function AuthSuccess() {
 
   return (
     <div className="flex h-screen items-center justify-center">
-      <p className="text-lg font-semibold">
-        Signing you in...
-      </p>
+      <p className="text-lg font-semibold">Signing you in...</p>
     </div>
+  );
+}
+
+export default function AuthSuccess() {
+  return (
+    <Suspense
+      fallback={
+        <div className="flex h-screen items-center justify-center">
+          <p className="text-lg font-semibold">Loading...</p>
+        </div>
+      }
+    >
+      <AuthSuccessContent />
+    </Suspense>
   );
 }
