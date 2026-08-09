@@ -1,114 +1,67 @@
 # 🌿 WanderNest
-AI-powered review intelligence platform for homestay and eco-tourism businesses built with Next.js, Express.js, MongoDB Atlas, Google OAuth, JWT Authentication, and Hugging Face AI.
 
-WanderNest is an AI-powered review intelligence platform designed for homestay and eco-tourism businesses. The platform enables property owners to analyze customer reviews, understand guest sentiment, identify recurring themes, manage reviews, and securely authenticate users through JWT-based authentication.
+An AI-powered review intelligence platform for homestays and eco-tourism businesses that analyzes customer feedback, performs sentiment analysis, and provides actionable business insights through an interactive dashboard.
 
-## 🌐 Live Demo
+---
 
-Frontend:
+# 🌐 Live Demo
+
+**Frontend (Vercel):**  
 https://wander-nest-iota.vercel.app
 
-Backend API:
-https://wandernest-backend-iota.onrender.com
-
-Repository:
-https://github.com/Harshitamiddha05/WanderNest
-
-![Next.js](https://img.shields.io/badge/Next.js-16-black)
-![React](https://img.shields.io/badge/React-19-blue)
-![Express](https://img.shields.io/badge/Express-5-green)
-![MongoDB](https://img.shields.io/badge/MongoDB-Atlas-green)
-![JWT](https://img.shields.io/badge/Auth-JWT-orange)
-![Google OAuth](https://img.shields.io/badge/OAuth-Google-red)
-![License](https://img.shields.io/badge/License-Internship-blue)
+**Backend API (Render):**  
+https://wandernest-backend-1ota.onrender.com
 
 ---
-## ✨ Project Highlights
 
-- 🤖 AI-powered Guest Review Analyzer
-- 📊 Interactive Review Analytics Dashboard
-- 🔐 JWT Authentication (Email/Password + Google OAuth 2.0)
-- ☁️ MongoDB Atlas Cloud Database
-- 📝 Complete Review CRUD Operations
-- 📱 Responsive Next.js Frontend
-- ⚡ RESTful Express.js Backend
+# 📸 Screenshots
 
-# 📌 Project Overview
+## 🏠 Home Page
 
-WanderNest helps eco-tourism businesses make data-driven decisions by leveraging AI and modern web technologies. The platform provides review management, sentiment analysis, authentication, and an interactive dashboard to improve customer experience.
+![Home](screenshots/home.png)
+
+A responsive landing page introducing WanderNest and its AI-powered review analytics capabilities.
 
 ---
-# 🏗️ System Architecture
 
-```mermaid
-graph TD
-    A[User]
-    B[Next.js Frontend]
-    C[Express.js Backend]
-    D[MongoDB Atlas]
-    E[Google OAuth]
-    F[Hugging Face AI]
+## 🔐 Login Page
 
-    A --> B
-    B --> C
-    C --> D
-    C --> E
-    C --> F
-```
+![Login](screenshots/login.png)
 
-### Architecture Overview
-
-- **Next.js Frontend** provides the user interface.
-- **Express.js Backend** handles APIs and business logic.
-- **MongoDB Atlas** stores user and review data.
-- **Google OAuth** provides secure authentication.
-- **Hugging Face AI** analyzes reviews and generates insights.
+Secure authentication using Email/Password (JWT) and Google OAuth.
 
 ---
-# 🚀 Features
 
-## Review Management
+## 📊 Dashboard
 
-- Create Reviews
-- View All Reviews
-- View Review by ID
-- Update Reviews
-- Delete Reviews
-- Search Reviews
-- Review Analytics Dashboard
-- Responsive Review Management Interface
-- Dashboard Statistics
-- Recent Reviews Panel
+![Dashboard](screenshots/dashboard.png)
 
-## AI Features
+Displays review analytics, sentiment distribution, review statistics, and recent customer feedback.
 
-- AI-powered Guest Review Analysis
-- Sentiment Analysis
-- Confidence Score Generation
-- Theme Detection (Positive & Negative)
-- AI-generated Review Summary
-- Business Recommendations
+---
 
-## Authentication & Security
+## 📝 Reviews Page
 
-- User Registration
-- User Login
-- Google OAuth 2.0 Login (Passport.js)
-- Password Hashing using bcrypt
-- JWT Authentication
-- Protected API Routes
-- User Profile Endpoint
-- Persistent Login using Local Storage
-- Duplicate Email Validation
-- Invalid Login Handling
-- Secure Logout
+![Reviews](screenshots/reviews.png)
 
-## User Interface
+Manage reviews, search customer feedback, and view AI-generated sentiment analysis.
 
-- Responsive Design
-- Modern Dashboard
-- Mobile Friendly
-- Dark Mode Support (if enabled)
+---
+
+# ✨ Features
+
+- 🔐 Secure User Authentication (JWT)
+- 🔑 Google OAuth Login
+- 👤 User Registration & Login
+- 📊 Interactive Analytics Dashboard
+- 🤖 AI-powered Review Analysis
+- 😊 Sentiment Classification
+- 📈 Positive, Neutral & Negative Review Statistics
+- 🔍 Search Reviews
+- 📝 Review CRUD Operations
+- 💾 MongoDB Atlas Integration
+- 📱 Fully Responsive Design
+- ⚡ RESTful API Architecture
 
 ---
 
@@ -126,223 +79,100 @@ graph TD
 
 - Node.js
 - Express.js
+- Passport.js
+- JWT Authentication
+- bcrypt
+- express-session
+
+## Database
+
 - MongoDB Atlas
 - Mongoose
-- JWT
-- Passport.js
-- passport-google-oauth20
-- bcrypt
-- express-rate-limit
+
+## AI
+
 - Hugging Face Inference API
 
-## Development Tools
+## Deployment
 
-- Git
-- GitHub
-- Postman
-- MongoDB Compass / MongoDB Atlas
-
----
-
-## 📂 Project Structure
-
-```text
-WanderNest
-│
-├── app
-│   ├── about
-│   ├── dashboard
-│   ├── login
-│   ├── register
-│   ├── reviews
-│   └── page.tsx
-│
-├── components
-│   ├── reviews
-│   │   ├── DeleteDialog.tsx
-│   │   ├── ReviewForm.tsx
-│   ├── Navbar.tsx
-│   ├── Footer.tsx
-│   └── Hero.tsx
-│
-├── backend
-│   ├── config
-│   ├── controllers
-│   │   ├── authController.js
-│   │   ├── dashboardController.js
-│   │   ├── reviewController.js
-│   │   └── aiController.js
-│   ├── middleware
-│   ├── models
-│   ├── routes
-│   ├── services
-│   ├── server.js
-│   └── package.json
-│
-├── public
-├── README.md
-├── screenshots/
-│   ├── login.png
-│   ├── dashboard.png
-│   ├── google-login.png
-│   ├── ai-analyzer.png
-│   ├── reviews.png
-│   └── mobile-view.png
-└── package.json
-```
----
-
-# 📄 Pages
-
-- Home
-- About
-- Dashboard
-- Login
-- Register
-- Reviews
+- Vercel (Frontend)
+- Render (Backend)
+- MongoDB Atlas (Database)
 
 ---
 
-# 🔗 API Endpoints
+# 🚀 Setup Instructions
 
-## Authentication APIs
-
-| Method |          Endpoint         |      Description        |
-|--------|---------------------------|-------------------------|
-|  POST  |    /api/auth/register     |       Register User     |
-|  POST  |      /api/auth/login      |      Login User         |
-|   GET  |     /api/auth/profile     | Protected Profile Route |
-|   GET  |     /api/auth/google      |   Google OAuth Login    |
-|   GET  | /api/auth/google/callback |  Google OAuth Callback  |
-
----
-
-## Review APIs
-
-| Method |        Endpoint        |    Description   |
-|--------|------------------------|------------------|
-|   GET  |      /api/reviews      | Get All Reviews  |
-|   GET  |    /api/reviews/:id    | Get Review by ID |
-|  POST  |      /api/reviews      |   Create Review  |
-|   PUT  |    /api/reviews/:id    |   Update Review  |
-| DELETE |    /api/reviews/:id    |   Delete Review  |
-|   GET  | /api/reviews/search?q= |   Search Reviews |
-
----
-## Dashboard APIs
-
-| Method |            Endpoint           |              Description               |
-|--------|-------------------------------|----------------------------------------|
-| GET    |      /api/dashboard/stats     |  Retrieve dashboard review statistics  |
-| GET    | /api/dashboard/recent-reviews |     Retrieve recent guest reviews      |
-
-## AI APIs
-
-| Method |             Endpoint            |                  Description                 |
-|--------|---------------------------------|----------------------------------------------|
-|  POST  |      /api/ai/review-analysis    | Analyze a guest review using Hugging Face AI |
-
-Example Request
-
-```json
-{
-  "review": "The room was clean and spacious. Staff were friendly but the WiFi was slow."
-}
-```
-
-Example Response
-
-```json
-{
-  "success": true,
-  "data": {
-    "sentiment": "Positive",
-    "confidence": "90%",
-    "summary": "Guests appreciated the cleanliness and staff, but reported slow WiFi.",
-    "positive_themes": [
-      "Cleanliness",
-      "Friendly Staff"
-    ],
-    "negative_themes": [
-      "Slow WiFi"
-    ],
-    "business_suggestions": [
-      "Improve internet connectivity.",
-      "Maintain current service quality."
-    ]
-  }
-}
-```
-# 📦 Installation
-
-## Clone Repository
+## 1. Clone the Repository
 
 ```bash
 git clone https://github.com/Harshitamiddha05/WanderNest.git
-```
-
-## Navigate
-
-```bash
 cd WanderNest
 ```
 
 ---
 
-# ▶ Frontend Setup
-
-Install dependencies
+## 2. Install Frontend Dependencies
 
 ```bash
 npm install
-```
-
-Run
-
-```bash
-npm run dev
-```
-
-Frontend:
-
-```
-http://localhost:3000
 ```
 
 ---
 
-# ▶ Backend Setup
-
-Navigate
+## 3. Install Backend Dependencies
 
 ```bash
 cd backend
-```
-
-Install dependencies
-
-```bash
 npm install
 ```
 
-Create a `.env` file
+---
+
+## 4. Create Backend Environment Variables
+
+Create a `.env` file inside the `backend` folder.
 
 ```env
 PORT=5000
-MONGODB_URI=<your_mongodb_connection_string>
-JWT_SECRET=<your_jwt_secret>
-HF_API_KEY=<your_huggingface_api_key>
-GOOGLE_CLIENT_ID=<your_google_client_id>
-GOOGLE_CLIENT_SECRET=<your_google_client_secret>
+
+MONGODB_URI=your_mongodb_connection_string
+
+JWT_SECRET=your_jwt_secret
+
+SESSION_SECRET=your_session_secret
+
+GOOGLE_CLIENT_ID=your_google_client_id
+
+GOOGLE_CLIENT_SECRET=your_google_client_secret
+
+GOOGLE_CALLBACK_URL=http://localhost:5000/api/auth/google/callback
+
+FRONTEND_URL=http://localhost:3000
+
+HF_API_KEY=your_huggingface_api_key
 ```
 
-Run Backend
+---
+
+## 5. Create Frontend Environment Variables
+
+Create a `.env.local` file in the project root.
+
+```env
+NEXT_PUBLIC_API_URL=http://localhost:5000/api
+```
+
+---
+
+## 6. Run Backend
 
 ```bash
+cd backend
 npm run dev
 ```
 
-Backend:
+Backend runs on:
 
 ```
 http://localhost:5000
@@ -350,194 +180,248 @@ http://localhost:5000
 
 ---
 
-# 🗄 Database
+## 7. Run Frontend
 
-MongoDB Atlas is used as the cloud database to store:
+```bash
+npm run dev
+```
 
-- User Accounts
-- Guest Reviews
-- Authentication Data
-- Review Analytics Data
+Frontend runs on:
 
-Mongoose is used for schema definition and validation.
-
----
-
-# 🔐 Authentication Flow
-
-### Email Authentication
-
-1. User Registration
-2. Password hashed using bcrypt
-3. User Login
-4. JWT Token Generated
-5. Protected Routes verified using JWT middleware
-
-### Google OAuth Authentication
-
-1. User clicks "Continue with Google"
-2. Passport.js redirects to Google
-3. User grants permission
-4. Google redirects back to backend
-5. Backend generates JWT
-6. Frontend stores JWT and user profile
-7. Protected dashboard becomes accessible
+```
+http://localhost:3000
+```
 
 ---
 
-# 🧪 API Testing
+# 🔗 API Documentation
 
-All APIs were tested using Postman.
+## Authentication
 
-Verified APIs include:
+### Register
 
-- User Registration
-- User Login
-- Protected Route
-- Create Review
-- Get Reviews
-- Update Review
-- Delete Review
-- Search Reviews
-- AI Review Analysis Endpoint
-- Google OAuth Authentication
-- User Profile Endpoint
+```
+POST /api/auth/register
+```
+
+Request
+
+```json
+{
+  "name": "Harshita",
+  "email": "user@gmail.com",
+  "password": "123456"
+}
+```
+
+Response
+
+```json
+{
+  "success": true,
+  "message": "User Registered Successfully"
+}
+```
+
+---
+
+### Login
+
+```
+POST /api/auth/login
+```
+
+Request
+
+```json
+{
+  "email": "user@gmail.com",
+  "password": "123456"
+}
+```
+
+Response
+
+```json
+{
+  "token": "jwt_token",
+  "user": {
+    "name": "Harshita",
+    "email": "user@gmail.com"
+  }
+}
+```
 
 ---
 
-# 📸 Application Screenshots
+### Google OAuth
 
-The project documentation includes screenshots of:
+```
+GET /api/auth/google
+```
 
-- Authenticated Dashboard
-- Review Management Dashboard
-- Add Review Dialog
-- Edit Review Dialog
-- Delete Confirmation Dialog
-- AI Guest Review Analyzer
-- MongoDB Atlas Integration
-- Responsive Mobile & Desktop Layout
-- Network Request Verification using Chrome DevTools
-- Google OAuth Login
-- Authenticated Navbar
+Starts Google authentication.
 
 ---
-# 📸 Screenshots
 
-## Login Page
+### User Profile
 
-![Login](screenshots/login.png)
+```
+GET /api/auth/profile
+```
+
+Requires JWT token.
+
+---
+
+## Reviews
+
+| Method | Endpoint |
+|---------|----------|
+| GET | /api/reviews |
+| GET | /api/reviews/:id |
+| POST | /api/reviews |
+| PUT | /api/reviews/:id |
+| DELETE | /api/reviews/:id |
+| GET | /api/reviews/search |
 
 ---
 
 ## Dashboard
 
-![Dashboard](screenshots/dashboard.png)
+| Method | Endpoint |
+|---------|----------|
+| GET | /api/dashboard/stats |
+| GET | /api/dashboard/recent-reviews |
 
 ---
 
-## Google OAuth Login
+## AI
 
-![Google Login](screenshots/google-login.png)
+### Analyze Review
+
+```
+POST /api/ai/review-analysis
+```
+
+Request
+
+```json
+{
+  "review":"The room was clean and staff were very helpful."
+}
+```
+
+Example Response
+
+```json
+{
+  "sentiment":"Positive",
+  "confidence":"91%",
+  "summary":"Guests appreciated cleanliness and staff behavior.",
+  "positive_themes":[
+    "Cleanliness",
+    "Staff"
+  ],
+  "negative_themes":[],
+  "business_suggestions":[
+    "Maintain current service quality."
+  ]
+}
+```
+
+---
+
+# 🏗 Architecture / Folder Structure
+
+```
+WanderNest
+│
+├── app/
+│   ├── about/
+│   ├── dashboard/
+│   ├── login/
+│   ├── register/
+│   ├── reviews/
+│   └── page.tsx
+│
+├── components/
+│   ├── Navbar.tsx
+│   ├── Hero.tsx
+│   ├── Footer.tsx
+│   └── reviews/
+│
+├── backend/
+│   ├── config/
+│   ├── controllers/
+│   ├── middleware/
+│   ├── models/
+│   ├── routes/
+│   ├── services/
+│   └── server.js
+│
+├── public/
+├── screenshots/
+├── README.md
+└── package.json
+```
+
+### Architecture Overview
+
+- **Next.js** powers the frontend user interface.
+- **Express.js** provides RESTful backend APIs.
+- **MongoDB Atlas** stores user and review data.
+- **Passport.js** manages Google OAuth authentication.
+- **JWT** secures protected routes.
+- **Hugging Face AI** performs sentiment analysis and review summarization.
 
 ---
 
-## AI Review Analyzer
+# ⚠ Known Limitations
 
-![AI Analyzer](screenshots/ai-analyzer.png)
-
----
-
-## Review Management
-
-![Reviews](screenshots/reviews.png)
-# 📚 Internship Progress
-
-## Week 2
-
-- Responsive UI
-- Navbar
-- Hero Section
-- Footer
-- Dashboard
-- About Page
-
-## Week 5
-
-- MongoDB Integration
-- Mongoose Models
-- CRUD APIs
-- Search API
-- Frontend-Backend Integration
-- Postman Testing
-
-## Week 6
-
-- User Authentication
-- JWT Implementation
-- Password Hashing (bcrypt)
-- Protected Routes
-- Authentication Middleware
-- Secure Login & Registration
+- Render free tier may take 30–60 seconds to wake up after inactivity.
+- Hugging Face free API has rate limits.
+- Email verification is not implemented.
+- Password reset functionality is not available.
+- AI response speed depends on external API availability.
+- Google OAuth requires proper Google Cloud configuration for deployment.
 
 ---
-## Week 7
 
-- Integrated Hugging Face AI API
-- Implemented AI-powered Guest Review Analyzer
-- Added Sentiment Analysis
-- Added Confidence Score Generation
-- Added Theme Detection
-- Added AI-generated Review Summary
-- Added Business Recommendations
-- Connected AI Backend with Next.js Frontend
-- Implemented Loading and Error Handling
-- Tested AI APIs using Postman
+# 🙏 Credits & Acknowledgements
 
-## Week 8
+This project was developed as part of the **AI-Assisted Full Stack Web Development Internship**.
 
-- Integrated Google OAuth 2.0 authentication using Passport.js
-- Configured Google Cloud OAuth credentials
-- Implemented OAuth callback flow
-- Generated JWT after successful Google authentication
-- Added protected `/api/auth/profile` endpoint
-- Connected frontend authentication with backend
-- Implemented persistent login using Local Storage
-- Updated Navbar dynamically based on authentication state
-- Integrated Review Analytics Dashboard with MongoDB Atlas
-- Connected frontend components to live backend APIs
-- Completed Review CRUD operations
-- Added AI Guest Review Analyzer interface
-- Implemented Delete Confirmation Dialog
-- Improved responsive design
-- Verified frontend-backend communication using Chrome DevTools
+Special thanks to:
+
+- OpenAI ChatGPT
+- Hugging Face
+- Next.js
+- React
+- Express.js
+- MongoDB Atlas
+- Passport.js
+- JWT
+- Tailwind CSS
+- Render
+- Vercel
+- GitHub
+- Postman
+
+---
 
 # 👩‍💻 Author
 
 **Harshita Middha**
 
-AI-Assisted Full Stack Web Development Internship
+B.Tech CSE (Artificial Intelligence & Data Science)
 
-TBI-GEU
+Graphic Era (Deemed to be University), Dehradun
+
+AI-Assisted Full Stack Web Development Internship
 
 ---
 
-# ⭐ Future Enhancements
+# 📄 License
 
-- GitHub OAuth Login
-- Batch Review Analysis
-- Multilingual Review Analysis
-- AI-generated Reply Suggestions
-- Advanced Analytics Dashboard
-- Review Trend Visualization
-- Email Verification
-- Password Reset
-- Role-Based Authorization
-- User-specific Dashboard Analytics
-- Review Export (CSV/PDF)
-- Advanced Charts using Chart.js
-- Email Notifications
-
-## 📄 License
-
-This project was developed as part of the AI-Assisted Full Stack Web Development Internship at TBI-GEU.
+This project was developed for educational and internship purposes.

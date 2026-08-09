@@ -39,7 +39,7 @@ app.use(passport.session());
 
 // Home Route
 app.get("/", (req, res) => {
-  res.send("🚀 WanderNest Backend is Running!");
+  res.send("🚀 WanderNesat Backend is Running!");
 });
 
 // Review Routes
