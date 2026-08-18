@@ -40,6 +40,12 @@ export default function ReviewsPage() {
   const [selectedReview, setSelectedReview] = useState<Review | null>(null);
   const [saving, setSaving] = useState(false);
   const [deleting, setDeleting] = useState(false);
+  const [aiReviewData, setAiReviewData] = useState<{
+  review: string;
+  sentiment: "Positive" | "Neutral" | "Negative";
+  theme: string;
+  rating: number;
+} | null>(null);
  const fetchReviews = async () => {
   try {
     setLoading(true);
@@ -112,6 +118,7 @@ useEffect(() => {
     setShowForm(false);
     setEditingReview(null);
     setSelectedReview(null);
+    setAiReviewData(null);
 
   } catch {
     alert("Failed to save review.");
@@ -151,10 +158,11 @@ const handleDeleteReview = async () => {
           </h1>
 
           <button
-            onClick={() => {
-            setEditingReview(null);
-            setShowForm(true);
-            }}
+           onClick={() => {
+  setEditingReview(null);
+  setAiReviewData(null);
+  setShowForm(true);
+}}
             className="bg-green-600 hover:bg-green-700 text-white px-5 py-3 rounded-lg font-medium transition">
               + Add Review
             </button>
@@ -251,6 +259,28 @@ const handleDeleteReview = async () => {
                   ))}
                 </ul>
               </div>
+              <div className="flex justify-end pt-4">
+  <button
+    onClick={() => {
+  setEditingReview(null);
+
+  setAiReviewData({
+    review: reviewText,
+    sentiment: analysis.sentiment as
+      | "Positive"
+      | "Neutral"
+      | "Negative",
+    theme: "Other",
+    rating: 5,
+  });
+
+  setShowForm(true);
+}}
+    className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-semibold transition"
+  >
+    💾 Save Analysis as Review
+  </button>
+</div>
             </div>
           )}
         </div>
@@ -316,6 +346,7 @@ const handleDeleteReview = async () => {
             <button
               onClick={() => {
                 setEditingReview(review);
+                setAiReviewData(null);
                 setShowForm(true);
               }}
               className="rounded-lg bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 transition"
@@ -351,23 +382,27 @@ const handleDeleteReview = async () => {
       <ReviewForm
         loading={saving}
         initialData={
-          editingReview
-            ? {
-                review: editingReview.review,
-                sentiment: editingReview.sentiment as
-                  | "Positive"
-                  | "Neutral"
-                  | "Negative",
-                theme:
-                    editingReview.theme.charAt(0).toUpperCase() +
-                    editingReview.theme.slice(1).toLowerCase(),
-                rating: editingReview.rating,
-              }
-            : undefined
-        }
+  editingReview
+    ? {
+        review: editingReview.review,
+        sentiment: editingReview.sentiment as
+          | "Positive"
+          | "Neutral"
+          | "Negative",
+        theme:
+          editingReview.theme.charAt(0).toUpperCase() +
+          editingReview.theme.slice(1).toLowerCase(),
+        rating: editingReview.rating,
+      }
+    : aiReviewData
+      ? aiReviewData
+      : undefined
+}
         onCancel={() => {
           setShowForm(false);
           setEditingReview(null);
+          setSelectedReview(null);
+          setAiReviewData(null);
         }}
         onSubmit={handleSaveReview}
       />
