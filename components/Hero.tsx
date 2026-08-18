@@ -61,7 +61,7 @@ export default function Hero() {
         <div className="mt-14 flex flex-col sm:flex-row items-center justify-center gap-6 sm:gap-10 text-sm text-gray-400 dark:text-gray-500">
           <div className="flex items-center gap-2">
             <span className="text-green-500 dark:text-green-400 font-bold text-base">
-              250+
+              11
             </span>
             Reviews analyzed
           </div>
