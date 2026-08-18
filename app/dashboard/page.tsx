@@ -227,9 +227,17 @@ fetchRecentReviews();
     </p>
 
     <p className="mt-2 text-sm text-yellow-500 font-semibold">
-    ⭐ Average Rating: {stats.averageRating.toFixed(1)} / 5
+      ⭐ Average Rating: {stats.averageRating.toFixed(1)} / 5
     </p>
   </div>
+
+  {/* Analyze Review Button */}
+  <button
+    onClick={() => router.push("/reviews")}
+    className="bg-green-600 hover:bg-green-700 text-white px-5 py-3 rounded-lg font-semibold transition shadow-sm"
+  >
+    🤖 Analyze Review
+  </button>
 </div>
 
           {/* Metric Cards */}
