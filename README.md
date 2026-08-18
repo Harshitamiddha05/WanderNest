@@ -40,11 +40,13 @@ Displays review analytics, sentiment distribution, review statistics, and recent
 
 ---
 
-## 📝 Reviews Page
+## 📝 Reviews & AI Analysis
 
 ![Reviews](screenshots/reviews.png)
 
-Manage reviews, search customer feedback, and view AI-generated sentiment analysis.
+Manage guest reviews with full CRUD operations and analyze customer feedback using AI. The analyzer provides sentiment, confidence score, summary, positive and negative themes, and actionable business suggestions.
+
+AI-analyzed reviews can also be saved directly into the review management system.
 
 ---
 
@@ -53,16 +55,50 @@ Manage reviews, search customer feedback, and view AI-generated sentiment analys
 - 🔐 Secure User Authentication (JWT)
 - 🔑 Google OAuth Login
 - 👤 User Registration & Login
-- 📊 Interactive Analytics Dashboard
-- 🤖 AI-powered Review Analysis
+- 📊 Interactive Review Analytics Dashboard
+- 🤖 AI-powered Guest Review Analysis
 - 😊 Sentiment Classification
-- 📈 Positive, Neutral & Negative Review Statistics
-- 🔍 Search Reviews
-- 📝 Review CRUD Operations
+- 📊 AI Confidence Scoring
+- 📝 AI-generated Review Summarization
+- 🔎 Positive & Negative Theme Detection
+- 💡 Actionable Business Recommendations
+- 💾 Save AI Analysis as a Review
+- 📝 Full Review CRUD Operations
+- 🔍 Review Search & Management
+- 📊 Review Sentiment & Statistical Analytics
 - 💾 MongoDB Atlas Integration
 - 📱 Fully Responsive Design
 - ⚡ RESTful API Architecture
 
+---
+# 🤖 AI Review Intelligence Workflow
+
+WanderNest provides an end-to-end AI-powered review analysis workflow:
+
+```text
+Guest Review
+     ↓
+AI Review Analyzer
+     ↓
+Hugging Face Inference API
+     ↓
+┌─────────────────────────┐
+│ Sentiment               │
+│ Confidence Score        │
+│ Review Summary          │
+│ Positive Themes         │
+│ Negative Themes         │
+│ Business Suggestions    │
+└─────────────────────────┘
+     ↓
+Save Analysis as Review
+     ↓
+Review Form
+     ↓
+MongoDB
+     ↓
+Review Analytics Dashboard
+```
 ---
 
 # 🛠 Tech Stack
@@ -375,16 +411,27 @@ WanderNest
 - **JWT** secures protected routes.
 - **Hugging Face AI** performs sentiment analysis and review summarization.
 
+### Review Intelligence Flow
+
+1. User submits a guest review through the Next.js frontend.
+2. Frontend sends the review to the Express.js AI endpoint.
+3. Backend sends the review to the Hugging Face Inference API.
+4. AI-generated sentiment and review insights are returned to the frontend.
+5. User can review the analysis and choose to save it as a review.
+6. The existing review CRUD API stores the review in MongoDB Atlas.
+7. Dashboard APIs provide aggregated review statistics and recent feedback.
+
 ---
 
 # ⚠ Known Limitations
 
-- Render free tier may take 30–60 seconds to wake up after inactivity.
-- Hugging Face free API has rate limits.
-- Email verification is not implemented.
-- Password reset functionality is not available.
-- AI response speed depends on external API availability.
-- Google OAuth requires proper Google Cloud configuration for deployment.
+- Render free tier may take 30–60 seconds to wake up after periods of inactivity.
+- Hugging Face API usage may be subject to rate limits and availability constraints.
+- AI analysis response time depends on the availability and response time of the external Hugging Face API.
+- AI-generated insights are intended as decision-support information and may not always be perfectly accurate.
+- Email verification is not currently implemented.
+- Password reset functionality is not currently available.
+- Google OAuth requires proper Google Cloud credentials and callback configuration for deployment.
 
 ---
 
@@ -392,9 +439,8 @@ WanderNest
 
 This project was developed as part of the **AI-Assisted Full Stack Web Development Internship**.
 
-Special thanks to:
+Technologies and services used include:
 
-- OpenAI ChatGPT
 - Hugging Face
 - Next.js
 - React
@@ -407,8 +453,6 @@ Special thanks to:
 - Vercel
 - GitHub
 - Postman
-
----
 
 # 👩‍💻 Author
 
